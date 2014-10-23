@@ -118,6 +118,17 @@ Book::Book( const QString& id, const QString& title, const QString& author, cons
 
 
 //
+// Book
+//
+Book::Book()
+{
+    this->id                = -1;
+    this->borrowerID        = -1;
+}
+
+
+
+//
 // Lend
 //
 void Book::Lend( const Borrower& borrower )

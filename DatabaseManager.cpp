@@ -36,7 +36,7 @@ QSqlDatabase& DatabaseManager::GetDatabase()
 //
 // NewBorrower
 //
-Borrower DatabaseManager::NewBorrower( const QString& name, const QString& address, float feeTotal, float feeHistory, const QVector<QString>& phoneNumbers )
+Borrower DatabaseManager::NewBorrower( const QString& name, const QString& address, float feeTotal, float feeHistory, const QVector<QString>& phoneNumbers ) const
 {
     // Add the borrower.
     QSqlQuery                       query;
@@ -96,7 +96,7 @@ Borrower DatabaseManager::NewBorrower( const QString& name, const QString& addre
 //
 // DestroyBorrower
 //
-void DatabaseManager::DestroyBorrower( const Borrower& borrower )
+void DatabaseManager::DestroyBorrower( const Borrower& borrower ) const
 {
     QSqlQuery               query;
 
@@ -123,7 +123,7 @@ void DatabaseManager::DestroyBorrower( const Borrower& borrower )
 // NewBook
 //
 Book DatabaseManager::NewBook( const QString& title, const QString& author, const QString& subject, const QString& publisher, const QDate& publishingDate, const QString& location,
-                               Book::Status status, float overdueFine, float cost, const QString& information, Book::Type type )
+                               Book::Status status, float overdueFine, float cost, const QString& information, Book::Type type ) const
 {
     QSqlQuery           query;
     QString             id;
@@ -158,7 +158,7 @@ Book DatabaseManager::NewBook( const QString& title, const QString& author, cons
 //
 // DestroyBook
 //
-void DatabaseManager::DestroyBook( const Book& book )
+void DatabaseManager::DestroyBook( const Book& book ) const
 {
     QSqlQuery               query;
 
@@ -174,7 +174,7 @@ void DatabaseManager::DestroyBook( const Book& book )
 //
 // NewPhoneNumber
 //
-void DatabaseManager::NewPhoneNumber( const QString& number, Borrower& borrower )
+void DatabaseManager::NewPhoneNumber( const QString& number, Borrower& borrower ) const
 {
     QSqlQuery   query;
 
@@ -216,7 +216,7 @@ void DatabaseManager::NewPhoneNumber( const QString& number, Borrower& borrower 
 //
 // DestroyPhoneNumber
 //
-void DatabaseManager::DestroyPhoneNumber( const QString& number, Borrower& borrower )
+void DatabaseManager::DestroyPhoneNumber( const QString& number, Borrower& borrower ) const
 {
     QSqlQuery   query;
     if( query.exec( QString( "DELETE * FROM BorrowerNumber WHERE borrowerID = %1 AND phoneNumber = '%2'" ).arg( borrower.GetID(), number ) ) )
@@ -232,7 +232,7 @@ void DatabaseManager::DestroyPhoneNumber( const QString& number, Borrower& borro
 //
 // Update
 //
-void DatabaseManager::Update( const Borrower& borrower )
+void DatabaseManager::Update( const Borrower& borrower ) const
 {
     QSqlQuery   query;
     if( !query.exec( QString( "UPDATE Borrower SET fullName = '%1', address = '%2', feeTotal = %3, feeHistory = %4 WHERE borrowerID = %5" ).arg( borrower.GetName(), borrower.GetAddress(),  QString::number( borrower.GetFeeTotal() ), QString::number( borrower.GetFeeHistory() ), borrower.GetID() ) ) )
@@ -247,7 +247,7 @@ void DatabaseManager::Update( const Borrower& borrower )
 //
 // Update
 //
-void DatabaseManager::Update( const Book& book )
+void DatabaseManager::Update( const Book& book ) const
 {
     QSqlQuery   query;
     QString     command = QString( "UPDATE Book SET title = '%1', author = '%2', subject = '%3', publisher = '%4', location = '%5', information = '%6', publishingDate = %7, dueDate = %8, overdueFine = %9, cost = %10, type = '%11', status = '%12', borrowerID = '%13' WHERE bookID = %14" )
@@ -266,7 +266,7 @@ void DatabaseManager::Update( const Book& book )
 //
 // UpdatePhoneNumber
 //
-void DatabaseManager::Update( const Borrower& borrower, const QString& number )
+void DatabaseManager::Update( const Borrower& borrower, const QString& number ) const
 {
     int         index = borrower.IndexOfPhoneNumber( number );
     if( index <= -1 )
@@ -282,7 +282,7 @@ void DatabaseManager::Update( const Borrower& borrower, const QString& number )
 //
 // Update
 //
-void DatabaseManager::Update( const Borrower& borrower, int i )
+void DatabaseManager::Update( const Borrower& borrower, int i ) const
 {
     BorrowerNumber      borrowerNumber = borrower.GetPhoneNumber( i );
     QSqlQuery           query;
@@ -299,7 +299,7 @@ void DatabaseManager::Update( const Borrower& borrower, int i )
 //
 // UpdatePhoneNumbers
 //
-void DatabaseManager::UpdatePhoneNumbers( const Borrower& borrower )
+void DatabaseManager::UpdatePhoneNumbers( const Borrower& borrower ) const
 {
     QSqlQuery   query;
 
@@ -307,6 +307,87 @@ void DatabaseManager::UpdatePhoneNumbers( const Borrower& borrower )
     {
         Update( borrower, i );
     }
+}
+
+
+
+//
+// GetBorrowersWhere
+//
+QVector<Borrower> DatabaseManager::GetBorrowersWhere( const QString& sqlWhere ) const
+{
+    // Run a select which will allow us to construct new borrower objects.
+    QSqlQuery                   query;
+    if( !query.exec( QString( "SELECT borrowerID, name, address, feeTotal, feeHistory FROM Borrower WHERE %1" ).arg( sqlWhere ) ) )
+    {
+        qDebug() << "Get borrowers where error: " << query.lastError().text();
+        return QVector<Borrower>();
+    }
+
+    // We will add the results of the query into the results vector row by row until we run out.
+    QVector<Borrower>           results;
+    while( query.next() )
+    {
+        // Add the new borrower. Value of 0 is borrowerID, value of 1 is name, etc.
+        results.push_back( Borrower( query.value( 0 ).toString(), query.value( 1 ).toString(), query.value( 2 ).toString(), query.value( 3 ).convert( QVariant::Double ),
+                                     query.value( 4 ).convert( QVariant::Double ), QVector<BorrowerNumber>() ) );
+        // Get this borrower's phone numbers.
+        results.last().SetPhoneNumbers( GetNumbersWhere( QString( "borrowerID = %1" ).arg( results.last().GetID() ) ) );
+    }
+
+    return results;
+}
+
+
+
+//
+// GetBooksWhere
+//
+QVector<Book> DatabaseManager::GetBooksWhere( const QString& sqlWhere ) const
+{
+    QSqlQuery                   query;
+    if( !query.exec( QString( "SELECT bookID, title, author, subject, publisher, publishingDate, location, status, overdueFine, cost, borrowerID, dueDate, information, type FROM Book" ) ) )
+    {
+        qDebug() << "Get books where error: " << query.lastError().text();
+        return QVector<Book>();
+    }
+
+    QVector<Book>               results;
+    while( query.next() )
+    {
+        results.push_back( Book( query.value( 0 ).toString(), query.value( 1 ).toString(), query.value( 2 ).toString(), query.value( 3 ).toString(), query.value( 4 ).toString(),
+                                 StringToDate( query.value( 5 ).toString() ), query.value( 6 ).toString(), Book::GetStringStatus( query.value( 7 ).toString() ),
+                                 query.value( 8 ).convert( QVariant::Double ), query.value( 9 ).convert( QVariant::Double ), query.value( 12 ).toString(),
+                                 Book::GetStringType( query.value( 13 ).toString() ), query.value( 10 ).toString(), StringToDate( query.value( 11 ).toString() ) ) );
+    }
+
+    return                      results;
+}
+
+
+
+//
+// GetNumbersWhere
+//
+QVector<BorrowerNumber> DatabaseManager::GetNumbersWhere( const QString& sqlWhere ) const
+{
+    // Run a select which will allow us to construct new BorrowerNumber objects.
+    QSqlQuery                   query;
+    if( !query.exec( QString( "SELECT borrowerNumberID, phoneNumber FROM BorrowerNumber WHERE %1" ).arg( sqlWhere ) ) )
+    {
+        qDebug() << "Get numbers where error: " << query.lastError().text();
+        return QVector<BorrowerNumber>();
+    }
+
+    // Add to the QVector of numbers until we run out of rows.
+    QVector<BorrowerNumber>     results;
+    while( query.next() )
+    {
+        // value of 0 is borrowerNumberID, value of 1 is phoneNumber.
+        results.push_back( BorrowerNumber( query.value( 0 ).toString(), query.value( 1 ).toString() ) );
+    }
+
+    return results;
 }
 
 
@@ -321,4 +402,26 @@ void DatabaseManager::UpdatePhoneNumbers( const Borrower& borrower )
 QString DatabaseManager::DateToString( const QDate& date ) const
 {
     return QString( "#" ) + date.toString( dateFormat ).replace( ".", "-" ) + QString( "#" );
+}
+
+
+
+//
+// StringToDate
+//
+QDate DatabaseManager::StringToDate( const QString& str ) const
+{
+    QStringList        tokens = str.split( "T" );
+    if( tokens.size() < 1 )
+    {
+        return QDate( 0, 0, 0 );
+    }
+
+    tokens = tokens[0].split( "-" );
+    if( tokens.size() != 3 )
+    {
+        return QDate( 0, 0, 0 );
+    }
+
+    return QDate( tokens.at( 0 ).toInt(), tokens.at( 1 ).toInt(), tokens.at( 2 ).toInt() );
 }

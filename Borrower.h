@@ -17,6 +17,7 @@ public:
 
 
     Borrower( const QString& id, const QString& name, const QString& address, float feeTotal, float feeHistory, const QVector<BorrowerNumber>& phoneNumbers );
+    Borrower();
 
     // Return value is excess.
     int                                 PayFee( int amount );

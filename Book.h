@@ -18,7 +18,7 @@ public:
 
 
     // 14 days for each borrowing.
-    const int           borrowingTime        = 14;
+    static const int           borrowingTime        = 14;
 
 
 
@@ -54,6 +54,7 @@ public:
 
     Book( const QString& id, const QString& title, const QString& author, const QString& subject, const QString& publisher, const QDate& publishingDate, const QString& location, Status status, float overdueFine, float cost,
           const QString& information, Type type, const QString& borrowerID = "-1", const QDate& dueDate = QDate( 0, 0, 0 ) );
+    Book();
 
     void                Lend( const Borrower& borrower );
     void                Return();

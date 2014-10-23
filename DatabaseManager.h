@@ -8,6 +8,7 @@
 
 #include "Borrower.h"
 #include "Book.h"
+#include "BorrowerNumber.h"
 
 
 
@@ -25,21 +26,25 @@ public:
 
     QSqlDatabase&           GetDatabase();
 
-    Borrower                NewBorrower( const QString& name, const QString& address, float feeTotal, float feeHistory, const QVector<QString>& phoneNumbers );
-    void                    DestroyBorrower( const Borrower& borrower );
+    Borrower                NewBorrower( const QString& name, const QString& address, float feeTotal, float feeHistory, const QVector<QString>& phoneNumbers ) const;
+    void                    DestroyBorrower( const Borrower& borrower ) const;
 
     Book                    NewBook( const QString& title, const QString& author, const QString& subject, const QString& publisher, const QDate& publishingDate,
-                                     const QString& location, Book::Status status, float overdueFine, float cost, const QString& information, Book::Type type );
-    void                    DestroyBook( const Book& book );
+                                     const QString& location, Book::Status status, float overdueFine, float cost, const QString& information, Book::Type type ) const;
+    void                    DestroyBook( const Book& book ) const;
 
-    void                    NewPhoneNumber( const QString& number, Borrower& borrower );
-    void                    DestroyPhoneNumber( const QString& number, Borrower& borrower );
+    void                    NewPhoneNumber( const QString& number, Borrower& borrower ) const;
+    void                    DestroyPhoneNumber( const QString& number, Borrower& borrower ) const;
 
-    void                    Update( const Borrower& borrower );
-    void                    Update( const Book& book );
-    void                    Update( const Borrower& borrower, const QString& number );
-    void                    Update( const Borrower& borrower, int i );
-    void                    UpdatePhoneNumbers( const Borrower& borrower );
+    void                    Update( const Borrower& borrower ) const;
+    void                    Update( const Book& book ) const;
+    void                    Update( const Borrower& borrower, const QString& number ) const;
+    void                    Update( const Borrower& borrower, int i ) const;
+    void                    UpdatePhoneNumbers( const Borrower& borrower ) const;
+
+    QVector<Borrower>       GetBorrowersWhere( const QString& sqlWhere ) const;
+    QVector<Book>           GetBooksWhere( const QString& sqlWhere ) const;
+    QVector<BorrowerNumber> GetNumbersWhere( const QString& sqlWhere ) const;
 
 
 
@@ -60,6 +65,7 @@ private:
 
 
     QString                 DateToString( const QDate& date ) const;
+    QDate                   StringToDate( const QString& str ) const;
 
 
 };
