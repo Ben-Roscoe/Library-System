@@ -173,9 +173,9 @@ void Borrower::SetPhoneNumber( const QString& number, int i )
 //
 // SetPhoneNumber
 //
-void Borrower::SetPhoneNumber( const QString& number, const QString& newNumber )
+void Borrower::SetPhoneNumber( const BorrowerNumber& number, const QString& newNumber )
 {
-    int i = IndexOfPhoneNumber( number );
+    int i = IndexOfPhoneNumber( number.GetID() );
     if( i != -1 )
     {
         phoneNumbers[i].SetPhoneNumber( newNumber );
@@ -239,7 +239,7 @@ int Borrower::IndexOfPhoneNumber( const QString& number ) const
 {
     for( int i = 0; i < phoneNumbers.size(); i++ )
     {
-        if( phoneNumbers[i].GetPhoneNumber() == number )
+        if( phoneNumbers[i].GetID() == number )
         {
             return i;
         }

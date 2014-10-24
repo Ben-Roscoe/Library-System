@@ -34,12 +34,11 @@ public:
     void                    DestroyBook( const Book& book ) const;
 
     void                    NewPhoneNumber( const QString& number, Borrower& borrower ) const;
-    void                    DestroyPhoneNumber( const QString& number, Borrower& borrower ) const;
+    void                    DestroyPhoneNumber( const BorrowerNumber& number ) const;
 
     void                    Update( const Borrower& borrower ) const;
     void                    Update( const Book& book ) const;
-    void                    Update( const Borrower& borrower, const QString& number ) const;
-    void                    Update( const Borrower& borrower, int i ) const;
+    void                    Update( const BorrowerNumber& number ) const;
     void                    UpdatePhoneNumbers( const Borrower& borrower ) const;
 
     QVector<Borrower>       GetBorrowersWhere( const QString& sqlWhere ) const;

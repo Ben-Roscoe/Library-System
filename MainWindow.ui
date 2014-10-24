@@ -28,7 +28,7 @@
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QScrollArea" name="scrollArea">
+           <widget class="QScrollArea" name="inputArea">
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -169,7 +169,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QScrollArea" name="scrollArea_2">
+           <widget class="QScrollArea" name="searchResultsArea">
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -183,50 +183,9 @@
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QListView" name="listView">
-                <property name="palette">
-                 <palette>
-                  <active>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>240</red>
-                      <green>240</green>
-                      <blue>240</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </active>
-                  <inactive>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>240</red>
-                      <green>240</green>
-                      <blue>240</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </inactive>
-                  <disabled>
-                   <colorrole role="Base">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>240</red>
-                      <green>240</green>
-                      <blue>240</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </disabled>
-                 </palette>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-               </widget>
-              </item>
+              <property name="sizeConstraint">
+               <enum>QLayout::SetNoConstraint</enum>
+              </property>
              </layout>
             </widget>
            </widget>

@@ -18,12 +18,18 @@ SOURCES += main.cpp\
     Book.cpp \
     Borrower.cpp \
     DatabaseManager.cpp \
-    BorrowerNumber.cpp
+    BorrowerNumber.cpp \
+    BorrowerEntry.cpp \
+    PhoneNumberEntry.cpp
 
 HEADERS  += MainWindow.h \
     Book.h \
     Borrower.h \
     DatabaseManager.h \
-    BorrowerNumber.h
+    BorrowerNumber.h \
+    BorrowerEntry.h \
+    PhoneNumberEntry.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    BorrowerEntry.ui \
+    PhoneNumberEntry.ui

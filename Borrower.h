@@ -35,7 +35,7 @@ public:
     void                                SetName( const QString& newName );
     void                                SetAddress( const QString& newAddress );
     void                                SetPhoneNumber( const QString& number, int i );
-    void                                SetPhoneNumber( const QString& number, const QString& newNumber );
+    void                                SetPhoneNumber( const BorrowerNumber& number, const QString& newNumber );
     void                                SetPhoneNumbers( const QVector<BorrowerNumber>& newNumbers );
     void                                AddPhoneNumber( const BorrowerNumber& newNumber );
     void                                RemovePhoneNumber( const QString& number );

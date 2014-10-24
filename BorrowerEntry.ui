@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BorrowerEntry</class>
+ <widget class="QWidget" name="BorrowerEntry">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>462</width>
+    <height>198</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>198</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="idLabel">
+             <property name="text">
+              <string>ID:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="nameLabel">
+             <property name="text">
+              <string>Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="addressLabel">
+             <property name="text">
+              <string>Address:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="feeTotalLabel">
+             <property name="text">
+              <string>Fee Total: </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="feeHistoryLabel">
+             <property name="text">
+              <string>Fee History: </string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QLineEdit" name="idLineEdit">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="nameLineEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="addressLineEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="feeTotalLineEdit">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="feeHistoryLineEdit">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QPushButton" name="updateButton">
+           <property name="text">
+            <string>Update</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteButton">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>216</width>
+          <height>176</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+  <zorder>idLineEdit</zorder>
+  <zorder>idLabel</zorder>
+  <zorder>idLabel</zorder>
+  <zorder>idLineEdit</zorder>
+  <zorder>nameLabel</zorder>
+  <zorder>nameLineEdit</zorder>
+  <zorder>addressLabel</zorder>
+  <zorder>addressLineEdit</zorder>
+  <zorder>feeTotalLabel</zorder>
+  <zorder>feeTotalLineEdit</zorder>
+  <zorder>feeHistoryLabel</zorder>
+  <zorder>feeHistoryLineEdit</zorder>
+  <zorder></zorder>
+  <zorder>deleteButton</zorder>
+  <zorder>updateButton</zorder>
+  <zorder>scrollArea</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
