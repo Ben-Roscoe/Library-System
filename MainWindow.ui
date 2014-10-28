@@ -20,7 +20,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget_2">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab_4">
          <attribute name="title">
@@ -42,6 +42,9 @@
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout">
+              <property name="fieldGrowthPolicy">
+               <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+              </property>
               <item row="0" column="0">
                <layout class="QVBoxLayout" name="verticalLayout_4">
                 <item>
@@ -108,9 +111,23 @@
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="bookCostLabel">
+                  <property name="text">
+                   <string>Cost:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="label_20">
                   <property name="text">
                    <string>Type:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="bookInformationLabel">
+                  <property name="text">
+                   <string>Information:</string>
                   </property>
                  </widget>
                 </item>
@@ -119,46 +136,107 @@
               <item row="0" column="1">
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <item>
-                 <widget class="QLineEdit" name="idLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookIDLineEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="titleLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookTitleLineEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="authorLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookAuthorLineEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="subjectLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookSubjectLineEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="publisherLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookPublisherLineEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="publishingDateLineEdit_2"/>
+                 <widget class="QDateEdit" name="bookPublisingDateEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="locationLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookLocationLineEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="statusLineEdit_2"/>
+                 <widget class="QComboBox" name="bookStatusComboBox">
+                  <property name="currentIndex">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Out</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Available</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Hold</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Maintenance</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="overdueFineLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookOverdueFineLineEdit"/>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="typeLineEdit_2"/>
+                 <widget class="QLineEdit" name="bookCostLineEdit"/>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="bookTypeComboBox">
+                  <property name="currentIndex">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Reserved</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Referenced</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Circulation</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="bookInformationLineEdit"/>
                 </item>
                </layout>
               </item>
               <item row="1" column="0">
-               <widget class="QPushButton" name="searchButton">
+               <widget class="QPushButton" name="searchButtonBook">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Search</string>
                 </property>
                </widget>
               </item>
               <item row="2" column="0">
-               <widget class="QPushButton" name="addButton">
+               <widget class="QPushButton" name="addButtonBook">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Add</string>
                 </property>
@@ -169,7 +247,17 @@
            </widget>
           </item>
           <item>
-           <widget class="QScrollArea" name="searchResultsArea">
+           <widget class="QListWidget" name="listWidgetBook"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_5">
+         <attribute name="title">
+          <string>Borrower</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QScrollArea" name="scrollArea">
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -182,20 +270,110 @@
                <height>517</height>
               </rect>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <property name="sizeConstraint">
-               <enum>QLayout::SetNoConstraint</enum>
+             <layout class="QFormLayout" name="formLayout_2">
+              <property name="fieldGrowthPolicy">
+               <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
               </property>
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <item>
+                 <widget class="QLabel" name="borrowerIDLabel">
+                  <property name="text">
+                   <string>ID:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="borrowerNameLabel">
+                  <property name="text">
+                   <string>Name: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="borrowerAddressLabel">
+                  <property name="text">
+                   <string>Address:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="borrowerFeeTotalLabel">
+                  <property name="text">
+                   <string>Fee Total:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="borrowerFeeHistoryLabel">
+                  <property name="text">
+                   <string>Fee History:</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <widget class="QLineEdit" name="borrowerIDLineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="borrowerNameLineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="borrowerAddressLineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="borrowerFeeTotalLineEdit">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="borrowerFeeHistoryLineEdit">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="QPushButton" name="searchButtonBorrower">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="QPushButton" name="addButtonBorrower">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Add</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </widget>
           </item>
+          <item>
+           <widget class="QListWidget" name="listWidgetBorrower"/>
+          </item>
          </layout>
-        </widget>
-        <widget class="QWidget" name="tab_5">
-         <attribute name="title">
-          <string>Borrower</string>
-         </attribute>
         </widget>
         <widget class="QWidget" name="tab_6">
          <attribute name="title">

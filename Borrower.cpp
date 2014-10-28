@@ -30,7 +30,7 @@ Borrower::Borrower( const QString& id, const QString& name, const QString& addre
 //
 Borrower::Borrower()
 {
-    this->id           = -1;
+    this->id           = "-1";
     this->name         = "";
     this->address      = "";
     this->feeTotal     = 0.0f;

@@ -155,10 +155,23 @@ void Book::Return()
     status      = Status::Available;
 
     // Set the due date to 0.
-    dueDate.setDate( 0, 0, 0 );
+    dueDate = QDate::currentDate();
 
     // Remove the borrower.
     borrowerID = "-1";
+}
+
+
+
+//
+// Recall
+//
+void Book::Recall()
+{
+    if( borrowerID != "-1" )
+    {
+        dueDate = dueDate.addDays( borrowingTime );
+    }
 }
 
 
@@ -350,6 +363,16 @@ void Book::SetPublisher( const QString& newPublisher )
 void Book::SetLocation( const QString& newLocation )
 {
     location = newLocation;
+}
+
+
+
+//
+// SetInformation
+//
+void Book::SetInformation( const QString& newInformation )
+{
+    information = newInformation;
 }
 
 

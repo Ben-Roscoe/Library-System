@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidget>
 #include "Borrower.h"
 #include "DatabaseManager.h"
 
@@ -16,6 +17,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+
+
 public:
 
 
@@ -28,12 +31,15 @@ private slots:
 
 
     void on_actionE_xit_triggered();
+    void on_searchButtonBorrower_clicked();
+    void on_listWidgetBorrower_itemDoubleClicked( QListWidgetItem *item );
+    void on_searchButtonBook_clicked();
+    void on_addButtonBook_clicked();
+    void on_addButtonBorrower_clicked();
 
 
 
-    void on_searchButton_clicked();
-
-    void on_addButton_clicked();
+    void on_listWidgetBook_itemDoubleClicked(QListWidgetItem *item);
 
 private:
 

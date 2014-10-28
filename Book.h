@@ -8,6 +8,20 @@
 
 class Borrower;
 
+
+
+// All info nesscessary to idenify the book.
+struct BookInfo
+{
+    QString             id;
+    QString             title;
+    QString             author;
+
+    QString             status;
+};
+
+
+
 class Book
 {
 
@@ -58,6 +72,7 @@ public:
 
     void                Lend( const Borrower& borrower );
     void                Return();
+    void                Recall();
 
     const QString&      GetID() const;
     const QString&      GetTitle() const;
@@ -80,6 +95,7 @@ public:
     void                SetSubject( const QString& newSubject );
     void                SetPublisher( const QString& newPublisher );
     void                SetLocation( const QString& newLocation );
+    void                SetInformation( const QString& newInformation );
     void                SetPublishingDate( const QDate& newDate );
     void                SetDueDate( const QDate& newDate );
     void                SetOverdueFine( float newFine );
@@ -88,7 +104,6 @@ public:
 
 
 private:
-
 
 
 

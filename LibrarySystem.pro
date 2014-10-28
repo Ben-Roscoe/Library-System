@@ -19,17 +19,23 @@ SOURCES += main.cpp\
     Borrower.cpp \
     DatabaseManager.cpp \
     BorrowerNumber.cpp \
-    BorrowerEntry.cpp \
-    PhoneNumberEntry.cpp
+    PhoneNumberEntry.cpp \
+    BorrowerEntryDialog.cpp \
+    BookEntryDialog.cpp \
+    BorrowerBooksEntry.cpp
 
 HEADERS  += MainWindow.h \
     Book.h \
     Borrower.h \
     DatabaseManager.h \
     BorrowerNumber.h \
-    BorrowerEntry.h \
-    PhoneNumberEntry.h
+    PhoneNumberEntry.h \
+    BorrowerEntryDialog.h \
+    BookEntryDialog.h \
+    BorrowerBooksEntry.h
 
 FORMS    += MainWindow.ui \
-    BorrowerEntry.ui \
-    PhoneNumberEntry.ui
+    PhoneNumberEntry.ui \
+    BorrowerEntryDialog.ui \
+    BookEntryDialog.ui \
+    BorrowerBooksEntry.ui
