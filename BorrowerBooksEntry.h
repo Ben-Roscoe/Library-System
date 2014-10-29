@@ -21,7 +21,7 @@ public:
 
 
 
-    explicit BorrowerBooksEntry( DatabaseManager* manager, const Book& book, QWidget *parent = 0 );
+    explicit BorrowerBooksEntry( DatabaseManager* manager, const Book& book, const Borrower& borrower, QWidget *parent = 0 );
     ~BorrowerBooksEntry();
 
 
@@ -39,6 +39,7 @@ private:
 
     Ui::BorrowerBooksEntry*         ui;
     Book                            book;
+    Borrower                        borrower;
     DatabaseManager*                manager;
 
 

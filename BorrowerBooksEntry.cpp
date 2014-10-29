@@ -1,18 +1,20 @@
 #include "BorrowerBooksEntry.h"
 #include "ui_BorrowerBooksEntry.h"
 
+#include <QMessageBox>
 
 
 
 //
 // BorrowerBooksEntry
 //
-BorrowerBooksEntry::BorrowerBooksEntry( DatabaseManager* manager, const Book& book, QWidget *parent ) : QWidget(parent), ui(new Ui::BorrowerBooksEntry)
+BorrowerBooksEntry::BorrowerBooksEntry( DatabaseManager* manager, const Book& book, const Borrower& borrower, QWidget *parent ) : QWidget(parent), ui(new Ui::BorrowerBooksEntry)
 {
     ui->setupUi( this );
 
     this->manager   = manager;
     this->book      = book;
+    this->borrower  = borrower;
 
     // Set all the line edits.
     ui->idLineEdit->setText( book.GetID() );
@@ -56,6 +58,8 @@ void BorrowerBooksEntry::on_returnPushButton_clicked()
     manager->Update( book );
     manager->GetDatabase().close();
 
+    QMessageBox::information( this, "Book returned", "This book has been returned." );
+
     // Book is no longer borrower to this borrower, close the form.
     close();
 }
@@ -68,7 +72,18 @@ void BorrowerBooksEntry::on_returnPushButton_clicked()
 //
 void BorrowerBooksEntry::on_renewPushButton_clicked()
 {
+    // Return and then lend the book again.
+    book.Return();
+    book.Lend( borrower );
 
+    manager->GetDatabase().open();
+    manager->Update( book );
+    manager->GetDatabase().close();
+
+    // Update due date edit.
+    ui->dueDateEdit->setDate( book.GetDueDate() );
+
+    QMessageBox::information( this, "Book renewed", "This book has been renewed." );
 }
 
 
@@ -89,4 +104,6 @@ void BorrowerBooksEntry::on_recallPushButton_clicked()
 
     // Update due date edit.
     ui->dueDateEdit->setDate( book.GetDueDate() );
+
+    QMessageBox::information( this, "Book recalled", "This book has been recalled." );
 }

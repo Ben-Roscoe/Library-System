@@ -2,9 +2,11 @@
 #include "ui_BorrowerEntryDialog.h"
 #include "PhoneNumberEntry.h"
 #include "BorrowerBooksEntry.h"
+#include "LendDialog.h"
 
 #include <QLayout>
 #include <QMessageBox>
+
 
 
 //
@@ -32,17 +34,7 @@ BorrowerEntryDialog::BorrowerEntryDialog( DatabaseManager* manager, const Borrow
         ui->scrollAreaWidgetContents->layout()->addWidget( new PhoneNumberEntry( number, manager ) );
     }
 
-    // Find all books that are borrowered by this borrowered and put them in the borrower scroll area.
-    manager->GetDatabase().open();
-    QVector<Book> books = manager->GetBooksWhere( QString( "borrowerID = %1" ).arg( borrower.GetID() ) );
-    manager->GetDatabase().close();
-
-    ui->bookScrollArea->setWidget( ui->booksScrollAreaContents );
-    ui->booksScrollAreaContents->setLayout( new QVBoxLayout() );
-    for( const Book& book : books )
-    {
-        ui->booksScrollAreaContents->layout()->addWidget( new BorrowerBooksEntry( manager, book ) );
-    }
+    AddAllBooksToWidgetList();
 }
 
 
@@ -144,4 +136,42 @@ void BorrowerEntryDialog::on_addPhoneNumberButton_clicked()
 
     // Number is valid, add the form.
     ui->scrollAreaWidgetContents->layout()->addWidget( new PhoneNumberEntry( number, manager ) );
+}
+
+
+
+//
+// on_lendBookButton_clicked
+//
+void BorrowerEntryDialog::on_lendBookButton_clicked()
+{
+    LendDialog          lendDialog( borrower, manager, this );
+    lendDialog.exec();
+
+    AddAllBooksToWidgetList();
+}
+
+
+
+//
+// AddAllBooksToWidgetList
+//
+void BorrowerEntryDialog::AddAllBooksToWidgetList()
+{
+    if( ui->booksScrollAreaContents->layout() != nullptr )
+    {
+        delete ui->booksScrollAreaContents->layout();
+    }
+    ui->bookScrollArea->setWidget( ui->booksScrollAreaContents );
+    ui->booksScrollAreaContents->setLayout( new QVBoxLayout() );
+
+    // Find all books that are borrowered by this borrowered and put them in the borrower scroll area.
+    manager->GetDatabase().open();
+    QVector<Book> books = manager->GetBooksWhere( QString( "borrowerID = %1" ).arg( borrower.GetID() ) );
+    manager->GetDatabase().close();
+
+    for( const Book& book : books )
+    {
+        ui->booksScrollAreaContents->layout()->addWidget( new BorrowerBooksEntry( manager, book, borrower ) );
+    }
 }

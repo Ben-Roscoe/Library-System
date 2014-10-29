@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     PhoneNumberEntry.cpp \
     BorrowerEntryDialog.cpp \
     BookEntryDialog.cpp \
-    BorrowerBooksEntry.cpp
+    BorrowerBooksEntry.cpp \
+    LendDialog.cpp
 
 HEADERS  += MainWindow.h \
     Book.h \
@@ -32,10 +33,12 @@ HEADERS  += MainWindow.h \
     PhoneNumberEntry.h \
     BorrowerEntryDialog.h \
     BookEntryDialog.h \
-    BorrowerBooksEntry.h
+    BorrowerBooksEntry.h \
+    LendDialog.h
 
 FORMS    += MainWindow.ui \
     PhoneNumberEntry.ui \
     BorrowerEntryDialog.ui \
     BookEntryDialog.ui \
-    BorrowerBooksEntry.ui
+    BorrowerBooksEntry.ui \
+    LendDialog.ui

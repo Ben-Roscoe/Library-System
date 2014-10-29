@@ -207,6 +207,8 @@ void BookEntryDialog::on_returnPushButton_clicked()
     ui->returnPushButton->setEnabled( false );
     ui->recallPushButton->setEnabled( false );
     ui->renewPushButton->setEnabled( false );
+
+    QMessageBox::information( this, "Book returned", "This book has been returned." );
 }
 
 
@@ -216,7 +218,18 @@ void BookEntryDialog::on_returnPushButton_clicked()
 //
 void BookEntryDialog::on_renewPushButton_clicked()
 {
+    // Return and then lend the book again.
+    book.Return();
+    book.Lend( borrower );
 
+    manager->GetDatabase().open();
+    manager->Update( book );
+    manager->GetDatabase().close();
+
+    // Update due date edit.
+    ui->dueDateEdit->setDate( book.GetDueDate() );
+
+    QMessageBox::information( this, "Book renewed", "This book has been renewed." );
 }
 
 
@@ -236,4 +249,6 @@ void BookEntryDialog::on_recallPushButton_clicked()
 
     // Update due date edit.
     ui->dueDateEdit->setDate( book.GetDueDate() );
+
+    QMessageBox::information( this, "Book recalled", "This book has been recalled." );
 }

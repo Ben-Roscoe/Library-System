@@ -33,6 +33,8 @@ private slots:
 
     void on_addPhoneNumberButton_clicked();
 
+    void on_lendBookButton_clicked();
+
 private:
 
 
@@ -40,6 +42,9 @@ private:
     Ui::BorrowerEntryDialog*        ui;
     DatabaseManager*                manager;
     Borrower                        borrower;
+
+
+    void                            AddAllBooksToWidgetList();
 
 
 };

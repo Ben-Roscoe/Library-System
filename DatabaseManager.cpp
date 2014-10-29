@@ -112,6 +112,14 @@ void DatabaseManager::DestroyBorrower( const Borrower& borrower ) const
         qDebug() << "Delete borrower Error: ";
         qDebug() << query.lastError().text();
     }
+
+    // Return all books borrowed by this borrower.
+    QVector<Book>          books = GetBooksWhere( QString( "borrowerID = %1" ).arg( borrower.GetID() ) );
+    for( Book& book : books )
+    {
+        book.Return();
+        Update( book );
+    }
 }
 
 

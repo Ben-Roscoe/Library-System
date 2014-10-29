@@ -121,7 +121,6 @@ void MainWindow::on_searchButtonBorrower_clicked()
         where.remove( where.size() - 4, 4 );
     }
 
-    qDebug() << where;
     // Run a select which will allow us to construct new borrower objects.
     QSqlQuery                   query;
     query.setForwardOnly( true );
@@ -159,10 +158,10 @@ void MainWindow::on_listWidgetBorrower_itemDoubleClicked( QListWidgetItem* item 
 
 
     // Create the dialog.
-    BorrowerEntryDialog*        borrowerEntry = new BorrowerEntryDialog( &manager, borrower, this );
+    BorrowerEntryDialog        borrowerEntry{ &manager, borrower, this };
 
     // If the dialog was "accepted", the entry was deleted, so remove it from the list.
-    if( borrowerEntry->exec() == QDialog::Accepted )
+    if( borrowerEntry.exec() == QDialog::Accepted )
     {
         // The item will remove itself from the list in it's destructor.
         delete item;
@@ -170,11 +169,8 @@ void MainWindow::on_listWidgetBorrower_itemDoubleClicked( QListWidgetItem* item 
     }
 
     // Reset the text incase the borrower has been updated.
-    borrower = borrowerEntry->GetBorrower();
+    borrower = borrowerEntry.GetBorrower();
     item->setText( QString( "ID: " ) + borrower.GetID() + QString( ", Name: " ) + borrower.GetName() + QString( ", Address: " ) + borrower.GetAddress() );
-
-    // Delete the dialog.
-    delete borrowerEntry;
 }
 
 
@@ -425,10 +421,10 @@ void MainWindow::on_listWidgetBook_itemDoubleClicked( QListWidgetItem* item )
     manager.GetDatabase().close();
 
     // Create the dialog.
-    BookEntryDialog*        bookEntry = new BookEntryDialog( &manager, book, this );
+    BookEntryDialog        bookEntry{ &manager, book, this };
 
     // If the dialog was "accepted", the entry was deleted, so remove it from the list.
-    if( bookEntry->exec() == QDialog::Accepted )
+    if( bookEntry.exec() == QDialog::Accepted )
     {
         // The item will remove itself from the list in it's destructor.
         delete item;
@@ -436,9 +432,6 @@ void MainWindow::on_listWidgetBook_itemDoubleClicked( QListWidgetItem* item )
     }
 
     // Reset the text incase the book has been updated.
-    book = bookEntry->GetBook();
+    book = bookEntry.GetBook();
     item->setText( QString( "ID: %1, Title: %2, Author: %3, Status: %4" ).arg( book.GetID(), book.GetTitle(), book.GetAuthor(), Book::GetStatusString( book.GetStatus() ) ) );
-
-    // Delete the dialog.
-    delete bookEntry;
 }
